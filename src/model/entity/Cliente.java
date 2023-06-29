@@ -4,7 +4,8 @@ import model.dao.ClienteDao;
 
 public class Cliente {
 	protected int id;
-	private String nome, doc;
+	protected String nome;
+	private String doc;
 
 	public Cliente(String doc) {
 		this.doc = doc;

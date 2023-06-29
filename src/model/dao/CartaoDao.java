@@ -38,9 +38,9 @@ public class CartaoDao {
 			pst.setString(1, cartao.getNumCartao());
 			pst.setString(2, cartao.getDataVal());
 			pst.setDouble(3, cartao.getLimite());
-			pst.setInt(4, cartao.getId());
+			pst.setInt(4, cartao.getIdCliente());
 			pst.execute();
-			System.out.println(cartao.getNome() + " inserido com sucesso.");
+			System.out.println("Cartão inserido com sucesso.");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -76,7 +76,7 @@ public class CartaoDao {
 
 	public Cartao consultaLimite(int id_cliente) {
 		ConectaBD con = new ConectaBD();
-		String sql = "SELECT c.id_cliente, c.nome_cliente, cr.nr_cartao, cr.limite FROM cartao as cr INNER JOIN clinte as c ON c.id_cliente = cr.id_cliente WHERE c.id_cliente = ?";
+		String sql = "SELECT c.id_cliente, c.nome_cliente, cr.nr_cartao, cr.limite FROM cartao as cr INNER JOIN cliente as c ON c.id_cliente = cr.id_cliente WHERE c.id_cliente = ?";
 		Cartao card = null;
 		try {
 			PreparedStatement pst = con.getConexao().prepareStatement(sql);
@@ -94,25 +94,6 @@ public class CartaoDao {
 			System.out.println(e.getMessage());
 		}
 		return card;
-	}
-
-	public void pagar(int id_cartao) {
-		ConectaBD con = new ConectaBD();
-		String sql = "SELECT c.id_cartao, SUM(tr.valor) as valor_total FROM cartao as c INNER JOIN transacao as tr ON c.id_cartao = tr.id_cartao WHERE id_cliente = ? GROUP BY c.id_cliente";
-		Cartao card = null;
-		try {
-			PreparedStatement pst = con.getConexao().prepareStatement(sql);
-			pst.setInt(1, id_cartao);
-			ResultSet rs = pst.executeQuery();
-			if (rs.next()) {
-				int id = rs.getInt("id_cliente");
-				double valor = rs.getDouble("valor_total");
-				card = new Cartao(id, valor);
-				card.setId(id_cartao);
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 }

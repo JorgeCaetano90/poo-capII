@@ -3,23 +3,52 @@ package model.entity;
 import model.dao.TransacaoDao;
 
 public class Transacao extends Cartao{
-	private String estab;
+	private int id_transacao, id_estab;
+	private String nome_estab;
 	private double compra, total;
 
 	public Transacao() {
 		
 	}
-
-	public Transacao(double valor, int id) {
-		
+	
+	public Transacao(int id_transacao, int id_estab) {
+		this.id_transacao = id_transacao;
+		this.id_estab = id_estab;
 	}
 
-	public Transacao(int id, double valor, int id_card) {
-		
+	public Transacao(double valor, int id_cartao) {
+		super(id_cartao);
+		this.compra = valor;
 	}
 
-	public void estab(String estab) {
-		this.estab = estab;
+	public Transacao(int id, double valor, int id_cartao) {
+		super(id_cartao);
+		this.id_transacao = id;
+		this.compra = valor;
+	}
+	
+	public Transacao(int id_cartao, double v_total) {
+		super(id_cartao);
+		this.total = v_total;
+	}
+
+	public Transacao(int id, double valor, int id_cartao, String estab) {
+		super(id_cartao);
+		this.id_transacao = id;
+		this.compra = valor;
+		this.nome_estab = estab;
+	}
+
+	public int getId_transacao() {
+		return id_transacao;
+	}
+
+	public void setId_transacao(int id_transacao) {
+		this.id_transacao = id_transacao;
+	}
+
+	public void estab(String nome_estab) {
+		this.nome_estab = nome_estab;
 	}
 	
 	public double getCompra() {
@@ -30,6 +59,30 @@ public class Transacao extends Cartao{
 		this.compra = compra;
 	}
 	
+	public String getNome_estab() {
+		return nome_estab;
+	}
+
+	public void setNome_estab(String nome_estab) {
+		this.nome_estab = nome_estab;
+	}
+
+	public int getId_estab() {
+		return id_estab;
+	}
+
+	public void setId_estab(int id_estab) {
+		this.id_estab = id_estab;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
 	public void compra (double compra) {
 		if (compra > limite) {
 			System.out.println("Compra não realizada. Limite excedido!");

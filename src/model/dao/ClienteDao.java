@@ -8,8 +8,6 @@ import java.util.List;
 
 import model.entity.Cliente;
 
-
-
 public class ClienteDao {
 
 	public void inserir(Cliente cliente) {
